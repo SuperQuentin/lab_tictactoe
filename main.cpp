@@ -5,9 +5,9 @@ using namespace std;
 int main() {
 
     const char tableau[9] = {
-    NULL, NULL, NULL,
-    NULL,NULL,NULL,
-    NULL,NULL,NULL,
+    'x', NULL, NULL,
+    NULL,'x',NULL,
+    NULL,NULL,'x',
     };
 
     const short win[8][3] = {
@@ -21,8 +21,7 @@ int main() {
      {2,4,6}
     };
 
-    const char player1 = 'X';
-    const char player2 = 'O';
+    char winPlayer = NULL;
 
 
     for(int x = 0; x < sizeof(tableau);x++) {
@@ -33,7 +32,8 @@ int main() {
         }
 
         if(tableau[index1] == tableau[index2] && tableau[index2] == tableau[index3]) {
-            cout << "c'est gagn\x82, we did it" << endl;
+            winPlayer = tableau[index1];
+            cout << "Tu as gagn\x82 < " << winPlayer << " > you did it" << endl;
             return true;
         }
     }
