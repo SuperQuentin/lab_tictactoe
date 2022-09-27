@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -14,7 +15,7 @@ char checkWin(const char *tableau) {
             {2,4,6}
     };
 
-    for(int x = 0; x < sizeof(tableau);x++) {
+    for(int x = 0; x <= sizeof(tableau);x++) {
         auto [index1, index2, index3] = win[x];
 
         if(tableau[index1] == NULL){
@@ -28,6 +29,20 @@ char checkWin(const char *tableau) {
     return NULL;
 }
 
+void displayTable(const char *tableau) {
+    for(int x = 0; x <= sizeof(tableau);x++) {
+        cout << left << setw(4) << setfill(' ') << tableau[x];
+        if((x+1)%3 == 0 && x > 0) {
+            cout << endl;
+        }
+        else {
+            cout << "|";
+        }
+    }
+
+    return;
+}
+
 int main() {
     const char tableau[9] = {
     'x', NULL, NULL,
@@ -39,6 +54,8 @@ int main() {
 
     if(winPlayer != NULL)
         cout << "tu es bon " << winPlayer << endl;
+
+    displayTable(tableau);
 
     return 0;
 }
