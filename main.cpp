@@ -3,6 +3,12 @@
 
 using namespace std;
 
+struct Vector2
+{
+    int x = 0;
+    int y = 0;
+};
+
 char checkWin(const char *tableau)
 {
     const short win[8][3] =
@@ -38,22 +44,26 @@ void displayTable(const char *tableau)
 {
     cout << "+-----------------+" << endl;
     // attention contrairement à .length, le length n'est stocké dans le premier bit
-    for(int i = 0; i <= sizeof(tableau);i++)
+    for(int i = 0; i <= sizeof(tableau); i++)
     {
         int y = i / 3;
         int x = i - (3 * y);
 
         if(x == 0)
         {
-            cout << "|" << setw(3) << tableau[i] << setw(3);
+            cout << "|";
+            cout << setw(3) << tableau[i] << setw(3);
         }
         else if(x == 2)
         {
-            cout << setw(3) << tableau[i] << setw(3) << "|" << endl;
+            cout << setw(3) << tableau[i] << setw(3);
+            cout << "|" << endl;
         }
         else
         {
-            cout << "|" << setw(3) << tableau[i] << setw(3) << "|";
+            cout << "|";
+            cout << setw(3) << tableau[i] << setw(3);
+            cout << "|";
         }
     }
     cout << "+-----------------+" << endl;
