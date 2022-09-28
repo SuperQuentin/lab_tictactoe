@@ -58,6 +58,7 @@ void displayTable(const char *tableau)
         {
             cout << setw(3) << tableau[i] << setw(3);
             cout << "|" << endl;
+            cout << "+-----------------+" << endl;
         }
         else
         {
@@ -66,7 +67,6 @@ void displayTable(const char *tableau)
             cout << "|";
         }
     }
-    cout << "+-----------------+" << endl;
 }
 
 int main()
