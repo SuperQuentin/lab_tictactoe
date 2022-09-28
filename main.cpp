@@ -3,8 +3,10 @@
 
 using namespace std;
 
-char checkWin(const char *tableau) {
-    const short win[8][3] = {
+char checkWin(const char *tableau)
+{
+    const short win[8][3] =
+    {
             {0,1,2},
             {2,5,8},
             {6,7,8},
@@ -15,39 +17,55 @@ char checkWin(const char *tableau) {
             {2,4,6}
     };
 
-    for(int x = 0; x <= sizeof(tableau);x++) {
+    for(int x = 0; x <= sizeof(tableau);x++)
+    {
         auto [index1, index2, index3] = win[x];
 
-        if(tableau[index1] == NULL){
+        if(tableau[index1] == NULL)
+        {
             continue;
         }
 
-        if(tableau[index1] == tableau[index2] && tableau[index2] == tableau[index3]) {
+        if(tableau[index1] == tableau[index2] && tableau[index2] == tableau[index3])
+        {
             return tableau[index1];;
         }
     }
     return NULL;
 }
 
-void displayTable(const char *tableau) {
-    for(int x = 0; x <= sizeof(tableau);x++) {
-        cout << left << setw(4) << setfill(' ') << tableau[x];
-        if((x+1)%3 == 0 && x > 0) {
-            cout << endl;
+void displayTable(const char *tableau)
+{
+    cout << "+-----------------+" << endl;
+    // attention contrairement à .length, le length n'est stocké dans le premier bit
+    for(int i = 0; i <= sizeof(tableau);i++)
+    {
+        int y = i / 3;
+        int x = i - (3 * y);
+
+        if(x == 0)
+        {
+            cout << "|" << setw(3) << tableau[i] << setw(3);
         }
-        else {
-            cout << "|";
+        else if(x == 2)
+        {
+            cout << setw(3) << tableau[i] << setw(3) << "|" << endl;
+        }
+        else
+        {
+            cout << "|" << setw(3) << tableau[i] << setw(3) << "|";
         }
     }
-
-    return;
+    cout << "+-----------------+" << endl;
 }
 
-int main() {
-    const char tableau[9] = {
-    'x', NULL, NULL,
-    NULL,'x',NULL,
-    NULL,NULL,'x',
+int main()
+{
+    const char tableau[9] =
+    {
+    'X', NULL, NULL,
+    NULL,'X',NULL,
+    NULL,NULL,'X',
     };
 
     char winPlayer = checkWin(tableau);
