@@ -16,9 +16,7 @@ bool checkValid(const char *tableau, int x, int y)
     if(!isXInbound || !isYInbound) return false;
 
     int index = y*3+x;
-    if(tableau[index] != NULL) return false;
-
-    return true;
+    return (tableau[index] == NULL);
 }
 
 char checkWin(const char *tableau)
