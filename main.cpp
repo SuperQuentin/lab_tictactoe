@@ -9,6 +9,18 @@ struct Vector2
     int y = 0;
 };
 
+bool checkValid(const char *tableau, int x, int y)
+{
+    bool isXInbound = x >= 0 && x < 3;
+    bool isYInbound = y >= 0 && y < 3;
+    if(!isXInbound || !isYInbound) return false;
+
+    int index = y*3+x;
+    if(tableau[index] != NULL) return false;
+
+    return true;
+}
+
 char checkWin(const char *tableau)
 {
     const short win[8][3] =
