@@ -25,6 +25,7 @@ char checkWin(const char *tableau)
 
     for(int x = 0; x <= sizeof(tableau);x++)
     {
+        // https://en.cppreference.com/w/cpp/language/structured_binding
         auto [index1, index2, index3] = win[x];
 
         if(tableau[index1] == NULL)
