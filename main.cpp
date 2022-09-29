@@ -4,7 +4,6 @@
 #include <regex>
 #include <cmath>
 
-
 using namespace std;
 
 struct Vector2
