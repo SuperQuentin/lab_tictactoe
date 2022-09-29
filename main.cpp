@@ -1,7 +1,7 @@
-#include <cstdlib>
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <regex>
 #include <cmath>
 
 
@@ -12,6 +12,20 @@ struct Vector2
     int x = 0;
     int y = 0;
 };
+
+Vector2 splitCoords(string& rawInput) {
+    smatch coords;
+    struct Vector2 extractedCoords;
+
+    // Search all corresponding patterns into the input string ex: 3-9, 6-8
+    if (regex_match(rawInput, coords,regex("([0-9]-[0-9])"))) {
+        string rawCoords = coords[coords.size()-1]; // Get last given cords if there is multiples
+        extractedCoords.x = stoi(rawCoords.substr(0,1));
+        extractedCoords.y = stoi(rawCoords.substr(2,1));
+    }
+
+    return extractedCoords;
+}
 
 bool checkValid(char *tableau, int x, int y)
 {
@@ -36,10 +50,12 @@ bool checkWin(char *tableau)
             {0,4,8},
             {2,4,6}
     };
+
     for(int x = 0; x <= 7;x++)
     {
         // https://en.cppreference.com/w/cpp/language/structured_binding
         auto [index1, index2, index3] = win[x];
+
         if(tableau[index1] == NULL)
         {
             continue;
@@ -47,14 +63,13 @@ bool checkWin(char *tableau)
 
         if(tableau[index1] == tableau[index2] && tableau[index2] == tableau[index3])
         {
-
-            return true;
+            return tableau[index1];;
         }
     }
-    return false;
+    return NULL;
 }
 
-void displayTable(char *tableau)
+void displayTable(const char *tableau)
 {
     cout << "+-----------------+" << endl;
     // attention contrairement à .length, le length n'est stocké dans le premier bit
@@ -92,19 +107,17 @@ int askCoords(char *tableau, char player)
     {
         displayTable(tableau);
 
-        string coord;
+        string rawInput;
         cout << "Joueur " << player << " entrée vos cordonnées x-y (Ex: 3-2) :" << endl;
-        cin >> coord;
+        cin >> rawInput;
 
-        int x = (int)coord[0] - 48;
-        int y = (int)coord[2] - 48;
-        y = abs(y-2); // pour avoir un tableau dans le bon sens
+        Vector2 coords;
 
-        //auto (x,y) splitCords(cordonnes) // https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0144r0.pdf
+        coords = splitCoords(rawInput);
 
-        valide = checkValid(tableau,x,y); // Vérifie si la case est valide
+        valide = checkValid(tableau,coords.x,coords.y); // Vérifie si la case est valide
         if(valide){
-            index = y*3+x; // Convertion cordonnées index tableau 1D
+            index = coords.y*3+coords.x; // Convertion cordonnées index tableau 1D
         }
     }
     return index;
